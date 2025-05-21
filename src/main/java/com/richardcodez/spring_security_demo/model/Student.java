@@ -1,4 +1,4 @@
-package com.richardcodez.spring_security_demo;
+package com.richardcodez.spring_security_demo.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
