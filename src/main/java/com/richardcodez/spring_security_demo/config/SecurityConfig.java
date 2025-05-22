@@ -41,22 +41,11 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        // using anonymous classes
-
-//        Customizer<CsrfConfigurer<HttpSecurity>> customCsrf = new Customizer<CsrfConfigurer<HttpSecurity>>() {
-//            @Override
-//            public void customize(CsrfConfigurer<HttpSecurity> configurer) {
-//                configurer.disable();
-//            }
-//        };
-//
-//        http.csrf(customCsrf);
-
-        // using lambdas
-
         http.csrf(customizer -> customizer.disable());
-        http.authorizeHttpRequests(request -> request.anyRequest().authenticated());
-  //        http.formLogin(Customizer.withDefaults());    // no longer needed for stateless
+        http.authorizeHttpRequests(request -> {
+            request.requestMatchers("/register", "/login").permitAll().anyRequest().authenticated();
+        });
+//        http.formLogin(Customizer.withDefaults());    // no longer needed for stateless
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
